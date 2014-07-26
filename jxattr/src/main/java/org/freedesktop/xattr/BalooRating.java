@@ -16,27 +16,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
+
 package org.freedesktop.xattr;
 
+import org.freedesktop.SimpleValue;
+
 /**
+ * Represents ratings how baloo uses it (https://community.kde.org/Baloo)
  *
  * @author Konrad Renner
  */
-public interface Attribute<T> {
+@AttributeDefinition(name = "rating", namespace = "user.baloo")
+public class BalooRating extends SimpleValue<Integer> implements Attribute<Integer> {
 
-    T getValue();
-
-    default String getName() {
-        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
-            return getClass().getAnnotation(AttributeDefinition.class).name();
+    private final Integer rating;
+    
+    public BalooRating(int rating) {
+        if (rating < 0 || rating > 10) {
+            throw new IllegalArgumentException("rating must be between 0 and 10");
         }
-        return null;
+        this.rating = rating;
     }
+    
 
-    default String getNamespace() {
-        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
-            return getClass().getAnnotation(AttributeDefinition.class).namespace();
-        }
-        return null;
+    @Override
+    public Integer getValue() {
+        return rating;
     }
 }

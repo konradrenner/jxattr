@@ -16,27 +16,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
+
 package org.freedesktop.xattr;
 
+import java.util.HashSet;
+
 /**
+ * Composite for Tag, the getValue method gets the tags separated with Commas as
+ * java.lang.String
  *
  * @author Konrad Renner
  */
-public interface Attribute<T> {
+public class Tags extends HashSet<Tag> implements Attribute<String> {
 
-    T getValue();
+    @Override
+    public String getValue() {
+        StringBuilder sb = new StringBuilder();
 
-    default String getName() {
-        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
-            return getClass().getAnnotation(AttributeDefinition.class).name();
-        }
-        return null;
+        this.stream().map((tag) -> {
+            sb.append(tag.getValue());
+            return tag;
+        }).forEach((_item) -> {
+            sb.append(',');
+        });
+
+        sb.deleteCharAt(sb.length() - 1);
+
+        return sb.toString();
     }
 
-    default String getNamespace() {
-        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
-            return getClass().getAnnotation(AttributeDefinition.class).namespace();
-        }
-        return null;
-    }
 }
