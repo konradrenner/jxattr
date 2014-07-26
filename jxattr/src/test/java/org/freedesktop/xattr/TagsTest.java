@@ -19,39 +19,30 @@
 
 package org.freedesktop.xattr;
 
-import java.util.Collection;
-import java.util.TreeSet;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Composite for Tag, the getValue method gets the tags separated with Commas as
- * java.lang.String. The tags are sorted in there natural ordering
  *
  * @author Konrad Renner
  */
-@AttributeDefinition(name = "tags")
-public class Tags extends TreeSet<Tag> implements Attribute<String> {
+public class TagsTest {
 
-    public Tags() {
+    private Tags underTest;
+
+    @Before
+    public void setUp() {
+        underTest = new Tags();
+        underTest.add(new Tag("Work"));
+        underTest.add(new Tag("Holiday"));
+        underTest.add(new Tag("Private"));
     }
 
-    public Tags(Collection<? extends Tag> c) {
-        super(c);
-    }
-
-    @Override
-    public String getValue() {
-        StringBuilder sb = new StringBuilder();
-
-        this.stream().map((tag) -> {
-            sb.append(tag.getValue());
-            return tag;
-        }).forEach((item) -> {
-            sb.append(',');
-        });
-
-        sb.deleteCharAt(sb.length() - 1);
-
-        return sb.toString();
+    @Test
+    public void testGetValue() {
+        assertThat(underTest.getValue(), is("Holiday,Private,Work"));
     }
 
 }

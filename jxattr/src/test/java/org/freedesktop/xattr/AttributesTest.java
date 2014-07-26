@@ -19,39 +19,43 @@
 
 package org.freedesktop.xattr;
 
-import java.util.Collection;
-import java.util.TreeSet;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Composite for Tag, the getValue method gets the tags separated with Commas as
- * java.lang.String. The tags are sorted in there natural ordering
  *
  * @author Konrad Renner
  */
-@AttributeDefinition(name = "tags")
-public class Tags extends TreeSet<Tag> implements Attribute<String> {
+public class AttributesTest {
 
-    public Tags() {
+    public AttributesTest() {
     }
 
-    public Tags(Collection<? extends Tag> c) {
-        super(c);
+    private Attributes underTest;
+
+    @Before
+    public void setUp() {
+        underTest = new Attributes(null);
     }
 
-    @Override
-    public String getValue() {
-        StringBuilder sb = new StringBuilder();
+    @Test
+    public void testGetAttributes() {
+    }
 
-        this.stream().map((tag) -> {
-            sb.append(tag.getValue());
-            return tag;
-        }).forEach((item) -> {
-            sb.append(',');
-        });
+    @Test
+    public void testGetAttribute_String_Class() {
+    }
 
-        sb.deleteCharAt(sb.length() - 1);
+    @Test
+    public void testGetAttribute_String() {
+    }
 
-        return sb.toString();
+    @Test
+    public void testSetAttributes() {
+    }
+
+    @Test
+    public void testSetAttribute() {
     }
 
 }
