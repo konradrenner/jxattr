@@ -5,6 +5,7 @@ java library for accessing extended file attributes (comments, tags, etc), defin
 
 HowTo use the org.freedesktop.Attributes class for manipulating/read user attributes:
 
+//Java
 public void userAttributesInAction() {
         Attributes userAttributes = new Attributes(path);
         //Read Tags an display it
