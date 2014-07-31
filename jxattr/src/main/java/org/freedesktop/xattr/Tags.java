@@ -24,8 +24,8 @@ import java.util.Collection;
 import java.util.TreeSet;
 
 /**
- * Composite for Tag, the getValue method gets the tags separated with Commas as
- * java.lang.String. The tags are sorted in there natural ordering
+ * Composite for Tag, the getValue method gets the tags separated with commas as
+ * java.lang.String. The tags are sorted in there natural ordering.
  *
  * @author Konrad Renner
  */
