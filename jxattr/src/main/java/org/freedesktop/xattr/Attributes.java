@@ -112,6 +112,15 @@ public class Attributes {
     private final Comparator<Attribute<?>> comparator;
     private final Map<AttributeID, Attribute<?>> attributes;
 
+    /**
+     * Creates an new instance for reading/manipulating user attributes. Throws
+     * an IllegalStateException if the given path is invalid. Throws
+     * NullpointerException if an argument is null.
+     *
+     * @throws IllegalStateException
+     * @throws NullPointerException
+     * @param pathToFile
+     */
     public Attributes(Path pathToFile) {
         this(pathToFile, new DefaultComparator());
     }
@@ -119,7 +128,10 @@ public class Attributes {
     /**
      * Creates an instance of this class with a given comparator. This
      * comparator is used for sorting, when the getAttributes() method is called
+     * Throws an IllegalStateException if the given path is invalid. Throws
+     * NullpointerException if an argument is null.
      *
+     * @throws IllegalStateException
      * @param pathToFile
      * @param comparator
      */
@@ -180,6 +192,9 @@ public class Attributes {
      * Updates or creates user attributes. This method does not remove any
      * attributes
      *
+     * Throws an IllegalStateException if the given path is invalid.
+     *
+     * @throws IllegalStateException
      * @param attrs
      */
     public void setAttributes(Attribute<?>... attrs) {
@@ -196,6 +211,9 @@ public class Attributes {
     /**
      * Removes Attributes which match with the given ids
      *
+     * Throws an IllegalStateException if the given path is invalid.
+     *
+     * @throws IllegalStateException
      * @param ids
      */
     public void removeAttributes(AttributeID... ids) {
