@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - oraclejdk8
+  
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "mvXinQDh34UcJnfd/v2CMVco3C/d4Ki7/lR2zgff3NfpHlrKjZL1NanT/RzqmBlnnGH319dfSXNfAWRIcBhC2Zmar/MDk0OxhhlC7lBtskGR2T7pfTD20HsVJlk4p2VU5x399LOObxUCPA1WvmUoXeaIYCnIB3PGuLosymOtwRM="
+
+addons:
+  coverity_scan:
+    project:
+      name: "konradrenner/jxattr"
+      description: "java library for accessing extended file attributes (comments, tags, etc), defined by the freedesktop project"
+    notification_email: koni.renner@gmail.com
+    build_command_prepend:
+    build_command: mvn  clean install -DskipTests=true -B -V
+    branch_pattern: master
