@@ -23,3 +23,9 @@ userAttributes.setAttributes(Attributes.Types.COMMENT.createInstance("Some comme
 //Remove the other attribute
 userAttributes.removeAttributes(myID);
 ```
+
+Travis:
+[![Build Status](https://secure.travis-ci.org/konradrenner/jxattr.png?branch=master)](http://travis-ci.org/konradrenner/jxattr)
+
+Coverity Scan:
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/2692/badge.svg)](https://scan.coverity.com/projects/2692)
