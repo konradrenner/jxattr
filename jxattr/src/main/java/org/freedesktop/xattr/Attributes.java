@@ -36,7 +36,7 @@ import java.util.TreeSet;
 
 /**
  * Operations for reading and modifying user attributes from Extended File
- * Attributes
+ * Attributes. User the Types enum for predefined attributes.
  *
  * @author Konrad Renner
  */
@@ -116,6 +116,13 @@ public class Attributes {
         this(pathToFile, new DefaultComparator());
     }
 
+    /**
+     * Creates an instance of this class with a given comparator. This
+     * comparator is used for sorting, when the getAttributes() method is called
+     *
+     * @param pathToFile
+     * @param comparator
+     */
     public Attributes(Path pathToFile, Comparator<Attribute<?>> comparator) {
         Objects.requireNonNull(pathToFile, "path to file must be not null");
         Objects.requireNonNull(comparator, "comparator must be not null");
@@ -124,7 +131,12 @@ public class Attributes {
         this.attributes = initAttributes();
     }
 
-
+    /**
+     * Gets all user attributes from the defined path, or an empty set if no
+     * attributes are defined
+     *
+     * @return Set<Attribute<?>>
+     */
     public Set<Attribute<?>> getAttributes() {
         TreeSet<Attribute<?>> ret = new TreeSet<>(this.comparator);
         this.attributes.values().stream().forEach((attr) -> {
@@ -134,15 +146,42 @@ public class Attributes {
         return ret;
     }
 
+    /**
+     * Returns the user attribute which is specified by the given ID. Throws a
+     * ClassCastException if the given Class is incompatibel with the type of
+     * the attribute.
+     *
+     * Returns null if no attribute is found
+     *
+     * @param <T>
+     * @param id
+     * @param clazz
+     * @throws ClassCastException
+     * @return T
+     */
     public <T> T getAttribute(AttributeID id, Class<T> clazz) {
         Attribute<?> attribute = getAttribute(id);
         return clazz.cast(attribute);
     }
 
+    /**
+     * Returns the user attribute which is specified by the given ID.
+     *
+     * Returns null if no attribute is found
+     *
+     * @param id
+     * @return T
+     */
     public Attribute<?> getAttribute(AttributeID id) {
         return this.attributes.get(id);
     }
 
+    /**
+     * Updates or creates user attributes. This method does not remove any
+     * attributes
+     *
+     * @param attrs
+     */
     public void setAttributes(Attribute<?>... attrs) {
         try {
             for (Attribute<?> attr : attrs) {
@@ -154,6 +193,11 @@ public class Attributes {
         }
     }
 
+    /**
+     * Removes Attributes which match with the given ids
+     *
+     * @param ids
+     */
     public void removeAttributes(AttributeID... ids) {
         UserDefinedFileAttributeView fileAttributeView = Files.getFileAttributeView(pathToFile, UserDefinedFileAttributeView.class);
         try {
@@ -166,6 +210,11 @@ public class Attributes {
         }
     }
 
+    /**
+     * Returns the number of user attributes which are set
+     *
+     * @return int
+     */
     public int size() {
         return this.attributes.size();
     }
@@ -218,7 +267,7 @@ public class Attributes {
     }
 
     /**
-     * Sorts the Elements depending on there namespace/name combination
+     * Sorts the Elements depending on there namespace+name combination
      */
     public static class DefaultComparator implements Comparator<Attribute<?>> {
 

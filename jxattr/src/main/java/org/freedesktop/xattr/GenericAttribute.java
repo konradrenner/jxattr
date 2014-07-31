@@ -22,6 +22,8 @@ package org.freedesktop.xattr;
 import java.util.Objects;
 
 /**
+ * Represents a generic attribute (attribute which is not specified in the Types
+ * enum of the class Attributes). The namespace must not start with "user"
  *
  * @author Konrad Renner
  */

@@ -23,6 +23,7 @@ import java.util.Objects;
 import org.freedesktop.SimpleValue;
 
 /**
+ * Represents a comment as defined by freedesktop.org
  *
  * @author Konrad Renner
  */

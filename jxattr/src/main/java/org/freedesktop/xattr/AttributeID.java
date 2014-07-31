@@ -22,6 +22,7 @@ package org.freedesktop.xattr;
 import java.util.Objects;
 
 /**
+ * ID for an attribute. The namespace must not start with "user"
  *
  * @author Konrad Renner
  */
