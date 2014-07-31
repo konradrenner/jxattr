@@ -88,6 +88,20 @@ public class AttributesTest {
         assertThat(actualComment, is(expectedComment));
     }
 
+    @Test
+    public void testRemoveAttributes() throws IOException {
+        Files.setAttribute(path, "user:jxattr.removeTest", ByteBuffer.wrap("Removing".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
+        attributes = new Attributes(path);
+
+        AttributeID attrId = AttributeID.newInstance().name("removeTest").namespace("jxattr").build();
+        GenericAttribute myAttr = GenericAttribute.newInstance(attrId).value("Removing").build();
+        assertThat(attributes.getAttribute(attrId), is(myAttr));
+
+        attributes.removeAttributes(attrId);
+
+        assertThat(attributes.getAttribute(attrId, GenericAttribute.class), is(nullValue()));
+    }
+
     private String readAttribute(String name) throws IOException {
         ByteBuffer read = ByteBuffer.allocate(Files.getFileAttributeView(path, UserDefinedFileAttributeView.class).size(name));
 
@@ -97,5 +111,25 @@ public class AttributesTest {
 
         read.rewind();
         return StandardCharsets.UTF_8.decode(read).toString();
+    }
+
+    @Test
+    public void userAttributesInAction() {
+        Attributes userAttributes = new Attributes(path);
+        //Read Tags an display it
+        Tags tags = userAttributes.getAttribute(Attributes.Types.TAGS.getAttributeID(), Tags.class);
+
+        //Java 8 Lambda
+        tags.stream().forEach((tag) -> {
+            System.out.println(tag);
+        });
+
+        //Set a comment and some other attribute into the file
+        AttributeID myID = AttributeID.newInstance().name("someTest").namespace("jxattr").build();
+        GenericAttribute myAttribute = GenericAttribute.newInstance(myID).value("Hello World").build();
+        userAttributes.setAttributes(Attributes.Types.COMMENT.createInstance("Some comment"), myAttribute);
+
+        //Remove the other attribute
+        userAttributes.removeAttributes(myID);
     }
 }

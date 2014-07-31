@@ -30,8 +30,12 @@ public class AttributeID implements Comparable<AttributeID> {
     private String name;
     private String namespace;
 
-    private AttributeID() {
-        //nothing
+    AttributeID() {
+    }
+
+    AttributeID(String name, String namespace) {
+        this.name = name;
+        this.namespace = namespace;
     }
 
     public static WithName newInstance() {

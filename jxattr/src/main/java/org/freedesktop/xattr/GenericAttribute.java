@@ -35,6 +35,12 @@ public class GenericAttribute implements Attribute<String> {
         return new Builder();
     }
 
+    public static WithValue newInstance(AttributeID id) {
+        Builder builder = new Builder();
+        builder.name(id.getName()).namespace(id.getNamespace());
+        return builder;
+    }
+
     @Override
     public String getValue() {
         return value;

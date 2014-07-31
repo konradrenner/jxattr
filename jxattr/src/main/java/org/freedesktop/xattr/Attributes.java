@@ -45,6 +45,10 @@ public class Attributes {
     public static final String DEFAULT_NAMESPACE = "xdg";
     public static final String USER_NAMESPACE_PREFIX = "user";
 
+    void getAttribute(Types types, Class<Tags> aClass) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public enum Types {
 
         TAGS("tags", DEFAULT_NAMESPACE) {
@@ -72,21 +76,16 @@ public class Attributes {
 
                 };
 
-        private final String name;
-        private final String namespace;
+        private final AttributeID id;
 
         private Types(String name, String namespace) {
-            this.name = name;
-            this.namespace = namespace;
+            this.id = new AttributeID(name, namespace);
         }
 
-        public String getName() {
-            return name;
+        public AttributeID getAttributeID() {
+            return id;
         }
 
-        public String getNamespace() {
-            return namespace;
-        }
 
         public abstract Attribute<?> createInstance(String value);
 
@@ -100,7 +99,7 @@ public class Attributes {
          */
         public static Attribute<?> createInstance(AttributeID id, String value) {
             for (Types type : values()) {
-                if (type.getNamespace().equalsIgnoreCase(id.getNamespace()) && type.getName().equalsIgnoreCase(id.getName())) {
+                if (type.getAttributeID().getNamespace().equalsIgnoreCase(id.getNamespace()) && type.getAttributeID().getName().equalsIgnoreCase(id.getName())) {
                     return type.createInstance(value);
                 }
             }
@@ -136,16 +135,34 @@ public class Attributes {
     }
 
     public <T> T getAttribute(AttributeID id, Class<T> clazz) {
-        return clazz.cast(getAttribute(id));
+        Attribute<?> attribute = getAttribute(id);
+        return clazz.cast(attribute);
     }
 
     public Attribute<?> getAttribute(AttributeID id) {
         return this.attributes.get(id);
     }
 
-    public void setAttributes(Attribute<?>... attrs) throws IOException {
-        for (Attribute<?> attr : attrs) {
-            Files.setAttribute(pathToFile, USER_NAMESPACE_PREFIX + ":" + attr.getNamespace() + "." + attr.getName(), ByteBuffer.wrap(attr.getValue().toString().getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
+    public void setAttributes(Attribute<?>... attrs) {
+        try {
+            for (Attribute<?> attr : attrs) {
+                Files.setAttribute(pathToFile, USER_NAMESPACE_PREFIX + ":" + attr.getNamespace() + "." + attr.getName(), ByteBuffer.wrap(attr.getValue().toString().getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
+                this.attributes.put(AttributeID.newInstance().name(attr.getName()).namespace(attr.getNamespace()).build(), attr);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to set Attributes: " + e);
+        }
+    }
+
+    public void removeAttributes(AttributeID... ids) {
+        UserDefinedFileAttributeView fileAttributeView = Files.getFileAttributeView(pathToFile, UserDefinedFileAttributeView.class);
+        try {
+            for (AttributeID id : ids) {
+                fileAttributeView.delete(id.getNamespace() + "." + id.getName());
+                this.attributes.remove(id);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to delete Attributes: " + e);
         }
     }
 
