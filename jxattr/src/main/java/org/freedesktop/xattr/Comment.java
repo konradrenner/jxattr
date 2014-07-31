@@ -19,6 +19,7 @@
 
 package org.freedesktop.xattr;
 
+import java.util.Objects;
 import org.freedesktop.SimpleValue;
 
 /**
@@ -31,6 +32,7 @@ public class Comment extends SimpleValue<String> implements Attribute<String> {
     private final String value;
 
     public Comment(String value) {
+        Objects.requireNonNull(value, "value must not be null");
         this.value = value;
     }
 
@@ -39,4 +41,30 @@ public class Comment extends SimpleValue<String> implements Attribute<String> {
         return value;
     }
 
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(getName());
+        hash = 31 * hash + Objects.hashCode(getNamespace());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Comment other = (Comment) obj;
+        if (!Objects.equals(getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(getNamespace(), other.getNamespace())) {
+            return false;
+        }
+        return true;
+    }
 }

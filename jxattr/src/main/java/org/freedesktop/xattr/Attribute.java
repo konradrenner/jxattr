@@ -22,7 +22,7 @@ package org.freedesktop.xattr;
  *
  * @author Konrad Renner
  */
-public interface Attribute<T> {
+public interface Attribute<T>  {
 
     T getValue();
 

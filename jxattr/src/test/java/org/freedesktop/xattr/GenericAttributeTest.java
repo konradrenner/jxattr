@@ -19,30 +19,24 @@
 
 package org.freedesktop.xattr;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 /**
  *
  * @author Konrad Renner
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface AttributeDefinition {
+public class GenericAttributeTest {
 
-    /**
-     * name of an attribute, e.g. comment
-     *
-     * @return String
-     */
-    String name();
 
-    /**
-     * namespace of an attribute, e.g. xdg
-     *
-     * @return String
-     */
-    String namespace() default Attributes.DEFAULT_NAMESPACE;
+    @Test
+    public void testGetValue() {
+        GenericAttribute attr = GenericAttribute.newInstance().name("name").namespace("namespace").value("value").build();
+
+        assertThat(attr.getName(), is("name"));
+        assertThat(attr.getNamespace(), is("namespace"));
+        assertThat(attr.getValue(), is("value"));
+    }
+
 }

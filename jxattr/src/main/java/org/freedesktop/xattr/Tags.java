@@ -19,6 +19,7 @@
 
 package org.freedesktop.xattr;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.TreeSet;
 
@@ -32,9 +33,21 @@ import java.util.TreeSet;
 public class Tags extends TreeSet<Tag> implements Attribute<String> {
 
     public Tags() {
+        super();
+    }
+    
+    public Tags(String value) {
+        String[] split = value.split(",");
+        for (String s : split) {
+            add(new Tag(s));
+        }
     }
 
-    public Tags(Collection<? extends Tag> c) {
+    public Tags(Tag... c) {
+        super(Arrays.asList(c));
+    }
+
+    public Tags(Collection<Tag> c) {
         super(c);
     }
 

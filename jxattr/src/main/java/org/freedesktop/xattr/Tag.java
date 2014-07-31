@@ -19,6 +19,7 @@
 
 package org.freedesktop.xattr;
 
+import java.util.Objects;
 import org.freedesktop.SimpleValue;
 
 /**
@@ -31,6 +32,7 @@ public class Tag extends SimpleValue<String> implements Attribute<String> {
     private final String value;
 
     public Tag(String val) {
+        Objects.requireNonNull(val, "value must not be null");
         this.value = val;
     }
 

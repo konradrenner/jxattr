@@ -19,6 +19,7 @@
 
 package org.freedesktop.xattr;
 
+import java.util.Objects;
 import org.freedesktop.SimpleValue;
 
 /**
@@ -26,7 +27,7 @@ import org.freedesktop.SimpleValue;
  *
  * @author Konrad Renner
  */
-@AttributeDefinition(name = "rating", namespace = "user.baloo")
+@AttributeDefinition(name = "rating", namespace = "baloo")
 public class BalooRating extends SimpleValue<Integer> implements Attribute<Integer> {
 
     private final Integer rating;
@@ -42,5 +43,31 @@ public class BalooRating extends SimpleValue<Integer> implements Attribute<Integ
     @Override
     public Integer getValue() {
         return rating;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(getName());
+        hash = 31 * hash + Objects.hashCode(getNamespace());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BalooRating other = (BalooRating) obj;
+        if (!Objects.equals(getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(getNamespace(), other.getNamespace())) {
+            return false;
+        }
+        return true;
     }
 }
