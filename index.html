@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Jxattr by konradrenner</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Jxattr</h1>
+          <h2>java library for accessing extended file attributes (comments, tags, etc), defined by the freedesktop project </h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/konradrenner/jxattr/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/konradrenner/jxattr/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/konradrenner/jxattr" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="jxattr" class="anchor" href="#jxattr"><span class="octicon octicon-link"></span></a>jxattr</h1>
+
+<p>Java library for accessing extended file attributes (comments, tags, etc), defined by the freedesktop project.</p>
+
+<p>HowTo use the org.freedesktop.Attributes class for manipulating/read user attributes:</p>
+
+<div class="highlight highlight-java"><pre><span class="c1">//Initialize with java.nio.file.Path</span>
+<span class="n">Attributes</span> <span class="n">userAttributes</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Attributes</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<span class="c1">//Read Tags an display it</span>
+<span class="n">Tags</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">userAttributes</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">Attributes</span><span class="o">.</span><span class="na">Types</span><span class="o">.</span><span class="na">TAGS</span><span class="o">.</span><span class="na">getAttributeID</span><span class="o">(),</span> <span class="n">Tags</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">//Java 8 Lambda</span>
+<span class="n">tags</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">forEach</span><span class="o">((</span><span class="n">tag</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">tag</span><span class="o">);</span>
+<span class="o">});</span>
+
+<span class="c1">//Set a comment and some other attribute into the file</span>
+<span class="n">AttributeID</span> <span class="n">myID</span> <span class="o">=</span> <span class="n">AttributeID</span><span class="o">.</span><span class="na">newInstance</span><span class="o">().</span><span class="na">name</span><span class="o">(</span><span class="s">"someTest"</span><span class="o">).</span><span class="na">namespace</span><span class="o">(</span><span class="s">"jxattr"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">GenericAttribute</span> <span class="n">myAttribute</span> <span class="o">=</span> <span class="n">GenericAttribute</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="n">myID</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">userAttributes</span><span class="o">.</span><span class="na">setAttributes</span><span class="o">(</span><span class="n">Attributes</span><span class="o">.</span><span class="na">Types</span><span class="o">.</span><span class="na">COMMENT</span><span class="o">.</span><span class="na">createInstance</span><span class="o">(</span><span class="s">"Some comment"</span><span class="o">),</span> <span class="n">myAttribute</span><span class="o">);</span>
+
+<span class="c1">//Remove the other attribute</span>
+<span class="n">userAttributes</span><span class="o">.</span><span class="na">removeAttributes</span><span class="o">(</span><span class="n">myID</span><span class="o">);</span>
+</pre></div>
+
+<p>Travis:
+<a href="http://travis-ci.org/konradrenner/jxattr"><img src="https://secure.travis-ci.org/konradrenner/jxattr.png?branch=master" alt="Build Status"></a></p>
+
+<p>Coverity Scan:
+<a href="https://scan.coverity.com/projects/2692"><img src="https://scan.coverity.com/projects/2692/badge.svg" alt="Coverity Scan Build Status"></a></p>
+        </section>
+
+        <footer>
+          Jxattr is maintained by <a href="https://github.com/konradrenner">konradrenner</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
