@@ -1,11 +1,12 @@
 jxattr
 ======
 
-Java library for accessing extended file attributes (comments, tags, etc), defined by the freedesktop project 
+Java library for accessing extended file attributes (comments, tags, etc), defined by the freedesktop project.
 
 HowTo use the org.freedesktop.Attributes class for manipulating/read user attributes:
 
 ```java
+//Initialize with java.nio.file.Path
 Attributes userAttributes = new Attributes(path);
 //Read Tags an display it
 Tags tags = userAttributes.getAttribute(Attributes.Types.TAGS.getAttributeID(), Tags.class);
