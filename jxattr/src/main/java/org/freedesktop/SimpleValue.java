@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * Provides implementations of equals, hashCode, compareTo and toString for classes which have just 1 property
+ * 
  * @author Konrad Renner
  */
 public abstract class SimpleValue<T extends Comparable<? super T>>
