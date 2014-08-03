@@ -7,11 +7,10 @@ HowTo use the org.freedesktop.Attributes class for manipulating/read user attrib
 
 ```java
 //Initialize with java.nio.file.Path
-Attributes userAttributes = new Attributes(path);
+Attributes userAttributes = Attributes.createUserAttributes(path);
 //Read Tags an display it
-Tags tags = userAttributes.getAttribute(Attributes.Types.TAGS.getAttributeID(), Tags.class);
+Tags tags = userAttributes.getAttribute(UserAttributes.Types.TAGS.getAttributeID(), Tags.class);
 
-//Java 8 Lambda
 tags.stream().forEach((tag) -> {
     System.out.println(tag);
 });
@@ -19,7 +18,7 @@ tags.stream().forEach((tag) -> {
 //Set a comment and some other attribute into the file
 AttributeID myID = AttributeID.newInstance().name("someTest").namespace("jxattr").build();
 GenericAttribute myAttribute = GenericAttribute.newInstance(myID).value("Hello World").build();
-userAttributes.setAttributes(Attributes.Types.COMMENT.createInstance("Some comment"), myAttribute);
+userAttributes.setAttributes(UserAttributes.Types.COMMENT.createInstance("Some comment"), myAttribute);
 
 //Remove the other attribute
 userAttributes.removeAttributes(myID);
