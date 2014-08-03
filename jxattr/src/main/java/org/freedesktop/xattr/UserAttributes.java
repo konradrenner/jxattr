@@ -20,6 +20,7 @@
 package org.freedesktop.xattr;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -280,7 +281,7 @@ public class UserAttributes implements Attributes {
     /**
      * Sorts the Elements depending on there namespace+name combination
      */
-    public static class DefaultComparator implements Comparator<Attribute<?>> {
+    public static class DefaultComparator implements Comparator<Attribute<?>>, Serializable {
 
         @Override
         public int compare(Attribute<?> o1, Attribute<?> o2) {

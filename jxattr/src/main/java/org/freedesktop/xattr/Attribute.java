@@ -18,11 +18,13 @@
  */
 package org.freedesktop.xattr;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Konrad Renner
  */
-public interface Attribute<T>  {
+public interface Attribute<T> extends Serializable {
 
     T getValue();
 

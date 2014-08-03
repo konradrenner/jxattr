@@ -19,6 +19,7 @@
 
 package org.freedesktop.xattr;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Objects;
  *
  * @author Konrad Renner
  */
-public class AttributeID implements Comparable<AttributeID> {
+public class AttributeID implements Comparable<AttributeID>, Serializable {
 
     private String name;
     private String namespace;
