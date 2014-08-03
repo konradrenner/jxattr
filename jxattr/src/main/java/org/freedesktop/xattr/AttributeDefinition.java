@@ -44,5 +44,5 @@ public @interface AttributeDefinition {
      *
      * @return String
      */
-    String namespace() default Attributes.DEFAULT_NAMESPACE;
+    String namespace() default UserAttributes.DEFAULT_NAMESPACE;
 }

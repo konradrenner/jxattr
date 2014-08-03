@@ -39,7 +39,7 @@ import org.junit.Test;
  *
  * @author Konrad Renner
  */
-public class AttributesTest {
+public class UserAttributesTest {
 
     private Attributes attributes;
     private Path path;
@@ -50,7 +50,7 @@ public class AttributesTest {
         path = Paths.get(resource.toURI());
         Files.setAttribute(path, "user:xdg.comment", ByteBuffer.wrap("Halllo".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
         Files.setAttribute(path, "user:xdg.tags", ByteBuffer.wrap("Eins,Zwei".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
-        attributes = new Attributes(path);
+        attributes = Attributes.createUserAttributes(path);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class AttributesTest {
     @Test
     public void testRemoveAttributes() throws IOException {
         Files.setAttribute(path, "user:jxattr.removeTest", ByteBuffer.wrap("Removing".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
-        attributes = new Attributes(path);
+        attributes = Attributes.createUserAttributes(path);
 
         AttributeID attrId = AttributeID.newInstance().name("removeTest").namespace("jxattr").build();
         GenericAttribute myAttr = GenericAttribute.newInstance(attrId).value("Removing").build();
@@ -115,9 +115,9 @@ public class AttributesTest {
 
     @Test
     public void userAttributesInAction() {
-        Attributes userAttributes = new Attributes(path);
+        Attributes userAttributes = Attributes.createUserAttributes(path);
         //Read Tags an display it
-        Tags tags = userAttributes.getAttribute(Attributes.Types.TAGS.getAttributeID(), Tags.class);
+        Tags tags = userAttributes.getAttribute(UserAttributes.Types.TAGS.getAttributeID(), Tags.class);
 
         //Java 8 Lambda
         tags.stream().forEach((tag) -> {
@@ -127,7 +127,7 @@ public class AttributesTest {
         //Set a comment and some other attribute into the file
         AttributeID myID = AttributeID.newInstance().name("someTest").namespace("jxattr").build();
         GenericAttribute myAttribute = GenericAttribute.newInstance(myID).value("Hello World").build();
-        userAttributes.setAttributes(Attributes.Types.COMMENT.createInstance("Some comment"), myAttribute);
+        userAttributes.setAttributes(UserAttributes.Types.COMMENT.createInstance("Some comment"), myAttribute);
 
         //Remove the other attribute
         userAttributes.removeAttributes(myID);
