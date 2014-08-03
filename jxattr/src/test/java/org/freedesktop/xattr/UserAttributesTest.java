@@ -119,7 +119,6 @@ public class UserAttributesTest {
         //Read Tags an display it
         Tags tags = userAttributes.getAttribute(UserAttributes.Types.TAGS.getAttributeID(), Tags.class);
 
-        //Java 8 Lambda
         tags.stream().forEach((tag) -> {
             System.out.println(tag);
         });
