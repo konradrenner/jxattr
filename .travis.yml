@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
   
-script: mvn -f jxattr/pom.xml test
+script: mvn -f jxattr/pom.xml -DskipTests=true compile
   
 env:
   global:
