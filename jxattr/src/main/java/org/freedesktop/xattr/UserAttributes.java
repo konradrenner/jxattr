@@ -37,7 +37,7 @@ import java.util.TreeSet;
 
 /**
  * Operations for reading and modifying user attributes from Extended File
- UserAttributes. User the Types enum for predefined attributes.
+ * UserAttributes. User the Types enum for predefined attributes.
  *
  * @author Konrad Renner
  */
