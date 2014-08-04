@@ -46,10 +46,6 @@ public class UserAttributes implements Attributes {
     public static final String DEFAULT_NAMESPACE = "xdg";
     public static final String USER_NAMESPACE_PREFIX = "user";
 
-    void getAttribute(Types types, Class<Tags> aClass) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public enum Types {
 
         TAGS("tags", DEFAULT_NAMESPACE) {
