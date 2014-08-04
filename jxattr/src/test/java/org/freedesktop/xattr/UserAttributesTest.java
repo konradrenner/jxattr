@@ -50,7 +50,7 @@ public class UserAttributesTest {
         path = Paths.get(resource.toURI());
         Files.setAttribute(path, "user:xdg.comment", ByteBuffer.wrap("Halllo".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
         Files.setAttribute(path, "user:xdg.tags", ByteBuffer.wrap("Eins,Zwei".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
-        attributes = Attributes.createUserAttributes(path);
+        attributes = Attributes.loadUserAttributes(path);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class UserAttributesTest {
     @Test
     public void testRemoveAttributes() throws IOException {
         Files.setAttribute(path, "user:jxattr.removeTest", ByteBuffer.wrap("Removing".getBytes(StandardCharsets.UTF_8)), LinkOption.NOFOLLOW_LINKS);
-        attributes = Attributes.createUserAttributes(path);
+        attributes = Attributes.loadUserAttributes(path);
 
         AttributeID attrId = AttributeID.newInstance().name("removeTest").namespace("jxattr").build();
         GenericAttribute myAttr = GenericAttribute.newInstance(attrId).value("Removing").build();
@@ -115,7 +115,7 @@ public class UserAttributesTest {
 
     @Test
     public void userAttributesInAction() {
-        Attributes userAttributes = Attributes.createUserAttributes(path);
+        Attributes userAttributes = Attributes.loadUserAttributes(path);
         //Read Tags an display it
         Tags tags = userAttributes.getAttribute(UserAttributes.Types.TAGS.getAttributeID(), Tags.class);
 

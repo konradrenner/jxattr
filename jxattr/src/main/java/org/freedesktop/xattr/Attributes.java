@@ -99,8 +99,8 @@ public interface Attributes {
      * @throws NullPointerException
      * @param pathToFile
      */
-    public static Attributes createUserAttributes(Path pathToFile) {
-        return createUserAttributes(pathToFile, new UserAttributes.DefaultComparator());
+    public static Attributes loadUserAttributes(Path pathToFile) {
+        return loadUserAttributes(pathToFile, new UserAttributes.DefaultComparator());
     }
 
     /**
@@ -114,7 +114,7 @@ public interface Attributes {
      * @param pathToFile
      * @param comparator
      */
-    public static Attributes createUserAttributes(Path pathToFile, Comparator<Attribute<?>> comparator) {
+    public static Attributes loadUserAttributes(Path pathToFile, Comparator<Attribute<?>> comparator) {
         return new UserAttributes(pathToFile, comparator);
     }
 }
