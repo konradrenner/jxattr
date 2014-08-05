@@ -7,7 +7,7 @@ HowTo use the org.freedesktop.Attributes class for manipulating/read user attrib
 
 ```java
 //Initialize with java.nio.file.Path
-Attributes userAttributes = Attributes.createUserAttributes(path);
+Attributes userAttributes = Attributes.loadUserAttributes(path);
 //Read Tags an display it
 Tags tags = userAttributes.getAttribute(UserAttributes.Types.TAGS.getAttributeID(), Tags.class);
 
