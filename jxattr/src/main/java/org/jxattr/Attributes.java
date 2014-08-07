@@ -17,13 +17,16 @@
  * MA 02110-1301  USA
  */
 
-package org.freedesktop.xattr;
+package org.jxattr;
 
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.Set;
+import org.jxattr.Attribute;
+import org.freedesktop.xattr.UserAttributes;
 
 /**
+ * Central object for handling attributes
  *
  * @author Konrad Renner
  */

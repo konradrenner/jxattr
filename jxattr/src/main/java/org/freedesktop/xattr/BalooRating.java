@@ -19,8 +19,10 @@
 
 package org.freedesktop.xattr;
 
+import org.jxattr.AttributeDefinition;
+import org.jxattr.Attribute;
 import java.util.Objects;
-import org.freedesktop.SimpleValue;
+import org.jxattr.SimpleValue;
 
 /**
  * Represents ratings how baloo uses it (https://community.kde.org/Baloo)

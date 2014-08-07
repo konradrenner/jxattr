@@ -19,6 +19,8 @@
 
 package org.freedesktop.xattr;
 
+import org.jxattr.GenericAttribute;
+import org.jxattr.AttributeID;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -34,6 +36,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import org.jxattr.Attribute;
+import org.jxattr.Attributes;
 
 /**
  * Operations for reading and modifying user attributes from Extended File
@@ -119,7 +123,7 @@ public class UserAttributes implements Attributes {
      * @param pathToFile
      * @param comparator
      */
-    UserAttributes(Path pathToFile, Comparator<Attribute<?>> comparator) {
+    public UserAttributes(Path pathToFile, Comparator<Attribute<?>> comparator) {
         Objects.requireNonNull(pathToFile, "path to file must be not null");
         Objects.requireNonNull(comparator, "comparator must be not null");
         this.pathToFile = pathToFile;

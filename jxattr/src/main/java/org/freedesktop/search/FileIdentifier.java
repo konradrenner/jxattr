@@ -17,27 +17,26 @@
  * MA 02110-1301  USA
  */
 
-package org.freedesktop.xattr;
+package org.freedesktop.search;
 
-import org.jxattr.GenericAttribute;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
+import java.nio.file.Path;
+import org.jxattr.SimpleValue;
 
 /**
+ * Identifier for files
  *
  * @author Konrad Renner
  */
-public class GenericAttributeTest {
+public class FileIdentifier extends SimpleValue<Path> implements ItemIdentifier<Path> {
+    private final Path value;
 
-
-    @Test
-    public void testGetValue() {
-        GenericAttribute attr = GenericAttribute.newInstance().name("name").namespace("namespace").value("value").build();
-
-        assertThat(attr.getName(), is("name"));
-        assertThat(attr.getNamespace(), is("namespace"));
-        assertThat(attr.getValue(), is("value"));
+    public FileIdentifier(Path val) {
+        this.value = val;
     }
 
+    @Override
+    public Path getValue() {
+        return this.value;
+    }
+ //TODO Path is not Serializable, write serialization on your own
 }

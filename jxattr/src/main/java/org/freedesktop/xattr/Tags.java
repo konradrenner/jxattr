@@ -19,6 +19,8 @@
 
 package org.freedesktop.xattr;
 
+import org.jxattr.AttributeDefinition;
+import org.jxattr.Attribute;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.TreeSet;

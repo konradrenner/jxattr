@@ -17,27 +17,14 @@
  * MA 02110-1301  USA
  */
 
-package org.freedesktop.xattr;
-
-import org.jxattr.GenericAttribute;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
+package org.freedesktop.search;
 
 /**
+ * ID of an item, which was searched (e.g. a file path, URL, etc.)
  *
  * @author Konrad Renner
  */
-public class GenericAttributeTest {
+public interface ItemIdentifier<T> {
 
-
-    @Test
-    public void testGetValue() {
-        GenericAttribute attr = GenericAttribute.newInstance().name("name").namespace("namespace").value("value").build();
-
-        assertThat(attr.getName(), is("name"));
-        assertThat(attr.getNamespace(), is("namespace"));
-        assertThat(attr.getValue(), is("value"));
-    }
-
+    public T getValue();
 }

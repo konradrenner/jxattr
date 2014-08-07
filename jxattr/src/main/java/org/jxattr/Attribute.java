@@ -16,33 +16,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
+package org.jxattr;
 
-package org.freedesktop.xattr;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.io.Serializable;
 
 /**
+ * Represents an attriubte, this can be an extended file attribute, id3 tag,
+ * etc.
  *
  * @author Konrad Renner
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface AttributeDefinition {
+public interface Attribute<T> extends Serializable {
 
-    /**
-     * name of an attribute, e.g. comment
-     *
-     * @return String
-     */
-    String name();
+    T getValue();
 
-    /**
-     * namespace of an attribute, e.g. xdg
-     *
-     * @return String
-     */
-    String namespace() default UserAttributes.DEFAULT_NAMESPACE;
+    default String getName() {
+        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
+            return getClass().getAnnotation(AttributeDefinition.class).name();
+        }
+        return null;
+    }
+
+    default String getNamespace() {
+        if (getClass().isAnnotationPresent(AttributeDefinition.class)) {
+            return getClass().getAnnotation(AttributeDefinition.class).namespace();
+        }
+        return null;
+    }
 }

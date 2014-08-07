@@ -17,7 +17,7 @@
  * MA 02110-1301  USA
  */
 
-package org.freedesktop.xattr;
+package org.jxattr;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class AttributeID implements Comparable<AttributeID>, Serializable {
     AttributeID() {
     }
 
-    AttributeID(String name, String namespace) {
+    public AttributeID(String name, String namespace) {
         this.name = name;
         this.namespace = namespace;
     }

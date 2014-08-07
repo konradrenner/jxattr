@@ -17,8 +17,10 @@
  * MA 02110-1301  USA
  */
 
-package org.freedesktop.xattr;
+package org.jxattr;
 
+import org.jxattr.AttributeID;
+import org.jxattr.Attribute;
 import java.util.Objects;
 
 /**

@@ -19,6 +19,10 @@
 
 package org.freedesktop.xattr;
 
+import org.jxattr.GenericAttribute;
+import org.jxattr.AttributeID;
+import org.jxattr.Attributes;
+import org.jxattr.Attribute;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;

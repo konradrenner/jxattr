@@ -7,9 +7,12 @@
 package org.freedesktop.search;
 
 /**
+ * Provider which can create a QueryBuilder. The QueryBuilder is used to build a
+ * query which can find items
  *
  * @author Konrad Renner
  */
 public interface SearchProvider {
-//TODO
+
+    QueryBuilder searchForItems(Operation spec);
 }
